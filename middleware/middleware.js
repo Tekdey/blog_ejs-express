@@ -4,7 +4,6 @@ class Middleware {
       res.locals.flash = req.session.flash;
       req.session.flash = undefined;
     }
-
     req.flash = function (type, content) {
       if (req.session.flash === undefined) {
         req.session.flash = {};
@@ -12,6 +11,13 @@ class Middleware {
       req.session.flash[type] = content;
     };
     next();
+  }
+
+  static protected_1(req, res, next) {
+    if (!req.session.isAuth) {
+      return res.send("unauthorized");
+    }
+    res.send("Hello");
   }
 }
 

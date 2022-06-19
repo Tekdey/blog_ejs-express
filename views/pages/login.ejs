@@ -1,0 +1,27 @@
+<%- include('../partials/header') %> 
+    <% if(locals.flash && locals.flash.error){ %>
+        <div class="ui negative message">
+            <%= flash.error %>
+        </div>
+    <% } %> 
+    <% if(locals.flash && locals.flash.success){ %>
+        <div class="ui positiv message">
+            <%= flash.success %>
+        </div>
+    <% } %> 
+    <form action="/login" method="post" class="ui form">
+        <h3 class="ui dividing header">Login</h3>
+        <div class="field">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username">
+        </div>
+        <div class="field">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <button class="medium ui animated primary button" tabindex="0" style="max-width: 150px;">
+            <div class="visible content">Sign in</div>
+            <div class="hidden content"><i class="right arrow icon"></i></div>
+        </button>
+    </form>
+<%- include('../partials/footer') %> 

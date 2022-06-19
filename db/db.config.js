@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
+const mongoURI = "mongodb://localhost:27017/ejs_crud_app";
 
 const connectDB = () => {
-  const mongoURI = "mongodb://localhost:27017/ejs_crud_app";
-
   mongoose
     .connect(mongoURI, {
       useNewUrlParser: true,
@@ -11,4 +10,4 @@ const connectDB = () => {
     .then(() => console.log("✅ database"));
 };
 
-module.exports = connectDB;
+module.exports = { connectDB, mongoURI };

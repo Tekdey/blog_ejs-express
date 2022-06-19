@@ -35,6 +35,31 @@ class UserModel {
       callback(false, 500, { error: "Server error, please try later" });
     }
   }
+
+  static async find(form, callback) {
+    try {
+      const user = await UserSchema.findOne({ username: form.username });
+
+      if (!user) {
+        return callback(false, 401, {
+          error: "Username or password incorrect",
+        });
+      }
+
+      const checkPsw = await bcrypt.compare(form.password, user.password);
+
+      if (!checkPsw) {
+        return callback(false, 401, {
+          error: "Username or password incorrect",
+        });
+      }
+
+      callback(true, 200, { success: "Connected" });
+    } catch (err) {
+      console.log(err);
+      callback(false, 500, { error: "Server error, please try later" });
+    }
+  }
 }
 
 module.exports = UserModel;
