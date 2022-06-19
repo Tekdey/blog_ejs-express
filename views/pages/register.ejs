@@ -1,0 +1,41 @@
+<%- include('../partials/header') %> 
+    <% if(locals.flash && locals.flash.error){ %>
+        <div class="ui negative message">
+            <%= flash.error %>
+        </div>
+    <% } %> 
+    <% if(locals.flash && locals.flash.success){ %>
+        <div class="ui positiv message">
+            <%= flash.success %>
+        </div>
+    <% } %> 
+    <form action="/register" method="post" class="ui form">
+        <h3 class="ui dividing header">Register</h3>
+        <div class="field">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username">
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+        </div>
+        <div class="field">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <div class="field">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" name="confirmPassword" id="passwordConfirm">
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input type="checkbox" tabindex="0" name="check">
+                <label>I agree to the Terms and Conditions</label>
+            </div>
+        </div>
+        <button class="medium ui animated primary button" tabindex="0" style="max-width: 150px;">
+            <div class="visible content">Sign up</div>
+            <div class="hidden content"><i class="right arrow icon"></i></div>
+        </button>
+    </form>
+<%- include('../partials/footer') %> 
