@@ -54,7 +54,7 @@ class UserModel {
         });
       }
 
-      callback(true, 200, { success: "Connected" });
+      callback(true, 200, { success: "Connected" }, user);
     } catch (err) {
       callback(false, 500, { error: "Server error, please try later" });
     }
