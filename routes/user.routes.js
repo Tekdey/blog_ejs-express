@@ -8,6 +8,4 @@ router.post("/register", Middleware.flash, User.create);
 router.get("/login", Middleware.flash, User.form);
 router.post("/login", Middleware.flash, User.login);
 
-router.get("/", Middleware.protected_1, User.login);
-
 module.exports = router;

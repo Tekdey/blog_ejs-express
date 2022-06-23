@@ -12,19 +12,21 @@ const store = new MongoDBSession({
 });
 
 app.set("view engine", "ejs");
+app.use(express.static("public"));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: store,
-    cookie: { maxAge: 86_400_000 },
+    cookie: { maxAge: 86_4e5 },
   })
 );
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/", require("./routes/user.routes"));
+app.use(require("./routes/user.routes"));
+app.use(require("./routes/post.routes"));
 
 connectDB();
 app.listen(PORT, () => console.log(`✅ http://localhost:${PORT}/`));

@@ -56,7 +56,6 @@ class UserModel {
 
       callback(true, 200, { success: "Connected" });
     } catch (err) {
-      console.log(err);
       callback(false, 500, { error: "Server error, please try later" });
     }
   }

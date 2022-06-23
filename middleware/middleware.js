@@ -17,9 +17,9 @@ class Middleware {
   }
   static protected_1(req, res, next) {
     if (!req.session.isAuth) {
-      return res.send("unauthorized");
+      return res.status(301).redirect("/login");
     }
-    res.send("Hello");
+    next();
   }
 }
 

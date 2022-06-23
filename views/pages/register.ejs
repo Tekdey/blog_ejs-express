@@ -11,23 +11,23 @@
     <% } %> 
     <form action="/register" method="post" class="ui form">
         <h3 class="ui dividing header">Register</h3>
-        <div class="field">
+        <div class="field required">
             <label for="username">Username</label>
             <input type="text" name="username" id="username">
         </div>
-        <div class="field">
+        <div class="field required">
             <label for="email">Email</label>
             <input type="email" name="email" id="email">
         </div>
-        <div class="field">
+        <div class="field required">
             <label for="password">Password</label>
             <input type="password" name="password" id="password">
         </div>
-        <div class="field">
+        <div class="field required">
             <label for="confirmPassword">Confirm password</label>
             <input type="password" name="confirmPassword" id="passwordConfirm">
         </div>
-        <div class="field">
+        <div class="field required">
             <div class="ui checkbox">
                 <input type="checkbox" tabindex="0" name="check">
                 <label>I agree to the Terms and Conditions</label>

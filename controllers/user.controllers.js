@@ -4,11 +4,10 @@ class User {
   static form(req, res) {
     res.render(`pages/${req.url.replace("/", "")}`);
   }
-
   static create(req, res) {
     const user = req.body;
 
-    User.check("register", user, function (isValid, status, message) {
+    User._check("register", user, function (isValid, status, message) {
       if (!isValid) {
         req.flash("error", message.error);
         return res.status(status).redirect("/register");
@@ -28,19 +27,23 @@ class User {
   static login(req, res) {
     const user = req.body;
 
-    User.check("login", user, function (isValid, status, message) {
+    User._check("login", user, function (isValid, status, message) {
       if (!isValid) {
         req.flash("error", message.error);
         return res.status(status).redirect("/login");
       }
-      UserModel.find(user, function (isValid, status, message) {
+      UserModel.find(user, function (isValid, status, message, user) {
         if (!isValid) {
           req.flash("error", message.error);
           return res.status(status).redirect("/login");
         }
         req.flash("success", message.success);
         req.session.isAuth = true;
-
+        req.session.user = {
+          username: user.username,
+          email: user.email,
+          created_at: user.created_at,
+        };
         return res.status(status).redirect("/login");
       });
     });
@@ -53,7 +56,7 @@ class User {
    * @param {function} callback
    * @returns true or false & err msg
    */
-  static check(type, form, callback) {
+  static _check(type, form, callback) {
     if (type === "register") {
       if (!form.username) {
         return callback(false, 401, { error: "Username is required" });
