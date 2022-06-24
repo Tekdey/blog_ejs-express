@@ -1,4 +1,10 @@
 class Middleware {
+  /**
+   *  Middleware that displays notifications for the user
+   * @param req
+   * @param res
+   * @param next
+   */
   static flash(req, res, next) {
     if (req.session.flash) {
       res.locals.flash = req.session.flash;
@@ -15,6 +21,13 @@ class Middleware {
     };
     next();
   }
+  /**
+   * Middleware that protect a route against a none authenticated users
+   * @param req
+   * @param res
+   * @param next
+   * @returns
+   */
   static protected_1(req, res, next) {
     if (!req.session.isAuth) {
       return res.status(301).redirect("/login");

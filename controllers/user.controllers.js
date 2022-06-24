@@ -1,10 +1,25 @@
 const UserModel = require("../models/user.models");
 
+/**
+ * User controllers
+ */
 class User {
+  /**
+   * Render ejs login or register form
+   * @param req
+   * @param res
+   * @returns render ejs login or register form
+   */
   static form(req, res) {
     res.render(`pages/${req.url.replace("/", "")}`);
   }
-  static create(req, res) {
+  /**
+   * Register controller thats _check if user is valid if it is he call the datamapper else return error message
+   * @param request
+   * @param response
+   * @returns error or success message and redirect user
+   */
+  static register(req, res) {
     const user = req.body;
 
     User._check("register", user, function (isValid, status, message) {
@@ -23,7 +38,12 @@ class User {
       });
     });
   }
-
+  /**
+   * Login controller thats _check if user is valid if it is he call the datamapper else return error message
+   * @param request
+   * @param response
+   * @returns error or success message and redirect user
+   */
   static login(req, res) {
     const user = req.body;
 
@@ -57,6 +77,7 @@ class User {
    * @returns true or false & err msg
    */
   static _check(type, form, callback) {
+    // register validation
     if (type === "register") {
       if (!form.username) {
         return callback(false, 401, { error: "Username is required" });
@@ -86,6 +107,7 @@ class User {
         });
       }
     }
+    // login validation
     if (type === "login") {
       if (!form.username) {
         return callback(false, 401, { error: "Username is required" });

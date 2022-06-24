@@ -1,7 +1,16 @@
 const UserSchema = require("../db/user.schema");
 const bcrypt = require("bcrypt");
 
+/**
+ * User data-mapper
+ */
 class UserModel {
+  /**
+   * Create a user in database
+   * @param {object} form username, email, password
+   * @param {function} callback
+   * @returns callback (isValid, status, message: 'success' or 'error')
+   */
   static async create(form, callback) {
     try {
       let user = await UserSchema.findOne({
@@ -35,7 +44,12 @@ class UserModel {
       callback(false, 500, { error: "Server error, please try later" });
     }
   }
-
+  /**
+   * Check if user exist in database
+   * @param {object} form username, email, password
+   * @param {function} callback
+   * @returns callback (isValid, status, message: 'success' or 'error', user)
+   */
   static async find(form, callback) {
     try {
       const user = await UserSchema.findOne({ username: form.username });

@@ -1,6 +1,15 @@
 const PostModel = require("../models/post.models");
 
+/**
+ * Post controllers
+ */
 class Post {
+  /**
+   * Controller thats _check if post is valid if it is he call the datamapper else return error message
+   * @param request
+   * @param response
+   * @returns error or success message and redirect user
+   */
   static create(req, res) {
     if (!req.uniqueImageName) {
       req.flash("error", "You need to upload an image");
@@ -11,7 +20,7 @@ class Post {
       image: req.uniqueImageName,
       author: req.session.user.username,
     };
-    Post._check(post, function (isValid, status, message) {
+    PostModel._check(post, function (isValid, status, message) {
       if (!isValid) {
         req.flash("error", message.error);
         return res.status(status).redirect("/");
@@ -26,6 +35,12 @@ class Post {
       });
     });
   }
+  /**
+   * Home page controller
+   * @param request
+   * @param response
+   * @returns render the ejs template as all posts
+   */
   static async index(req, res) {
     const posts = await PostModel.getAllPost();
     if (typeof posts === "string") {
@@ -35,17 +50,6 @@ class Post {
     res.render("pages/index", {
       posts,
     });
-  }
-  static _check(post, callback) {
-    if (post.content.length > 150) {
-      return callback(false, 406, {
-        error: "Message can not be greater than 150",
-      });
-    }
-    if (post.content.trim() === "") {
-      return callback(false, 406, { error: "Message can not be empty" });
-    }
-    return callback(true);
   }
 }
 
