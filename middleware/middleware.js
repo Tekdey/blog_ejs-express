@@ -34,6 +34,12 @@ class Middleware {
     }
     next();
   }
+  static protected_2(req, res, next) {
+    if (req.session.isAuth) {
+      return res.status(301).redirect("/");
+    }
+    next();
+  }
 }
 
 module.exports = Middleware;

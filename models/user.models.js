@@ -73,6 +73,18 @@ class UserModel {
       callback(false, 500, { error: "Server error, please try later" });
     }
   }
+  static async getOneUser(username, callback) {
+    try {
+      const user = await UserSchema.findOne({ username });
+      if (!user) {
+        return callback(false, 404, { error: "User doesn't exist" });
+      }
+      callback(true, 200, { success: `${user.username} a ete trouvé !` }, user);
+    } catch (error) {
+      console.log(error);
+      callback(false, 500, { error: "Server error, please try later" });
+    }
+  }
 }
 
 module.exports = UserModel;

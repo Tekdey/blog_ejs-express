@@ -40,6 +40,20 @@ class PostModel {
       return error.message;
     }
   }
+  static async findAllPostByUsername(username, callback) {
+    try {
+      const posts = await PostSchema.find({ author: username });
+
+      if (!posts) {
+        return callback(false, 404, { error: "No posts" });
+      }
+
+      callback(true, 200, { success: "posts found" }, posts);
+    } catch (error) {
+      console.log(error);
+      callback(false, 406, { error: "Server error, please try later" });
+    }
+  }
   /**
    * Check if posts are valids and return callback to the controller
    * @param {object} post content

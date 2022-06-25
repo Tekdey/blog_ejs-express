@@ -1,0 +1,73 @@
+<%- include('../partials/header') %> 
+    <nav class="ui fixed inverted menu">
+        <a href="/" class="header item">Accueil</a>
+    </nav>
+    <div class="ui main container">
+    <% if(locals.flash && locals.flash.error){ %>
+        <div class="ui negative message">
+            <%= flash.error %>
+        </div>
+    <% } %> 
+    <% if(locals.flash && locals.flash.success){ %>
+        <div class="ui positiv message">
+            <%= flash.success %>
+        </div>
+    <% } %> 
+    <div class="three ui buttons profile__menu">
+        <button class="ui button" id="menu_button-1"><%= data.user.username %></button>
+        <button class="ui button" id="menu_button-2">Posts (<%= data.post.count %>)</button>
+        <button class="ui button" id="menu_button-3">Likes</button>
+    </div>
+    <div class="container-menu_section">
+        <div class="ui" id="menu_section-1">
+           <div class="ui items">
+            <div class="item">
+              <div class="image">
+                <img src="/images/default_user.png" class="rounded" alt="profile">
+              </div>
+              <div class="content">
+                <a class="header"><%= data.user.username %></a>
+                <div class="extra">
+                    <%= data.user.created_at %>
+                </div>
+                <div class="extra">
+                    <%= data.post.count %>  posts
+                </div>
+                <div class="extra">
+                    0 likes
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+        <div class="ui" id="menu_section-2">
+            <% for(let i = 0; i < data.post.count; i++){ %>
+                <article class="ui medium card ">
+                    <div class="content">
+                        <div class="right floated meta"><%= data.post.item[i].created_at %></div>
+                      </div>
+                      <div class="image">
+                        <img class="ui tiny image" src="/images/<%= data.post.item[i].image %>">
+                      </div>
+                      <div class="content">
+                        <p><%= data.post.item[i].content %></p>
+                      </div>
+                      <div class="content">
+                        <span class="right floated">
+                          <i class="heart outline like icon"></i>
+                          17 likes
+                        </span>
+                        <i class="comment icon"></i>
+                        3 comments
+                      </div>
+                </article>
+            <% } %> 
+        </div>
+        <div class="ui" id="menu_section-3">
+            <p>Coming soon</p>
+        </div>
+    </div>
+
+<%- include('../partials/footer') %> 
+
+

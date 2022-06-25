@@ -49,6 +49,7 @@ class Post {
     }
     res.render("pages/index", {
       posts,
+      session: req.session.user,
     });
   }
 }

@@ -1,4 +1,9 @@
 <%- include('../partials/header') %> 
+  <nav class="ui fixed inverted menu">
+    <a href="/" class="header item">Accueil</a>
+    <a href="/profile/<%= session.username %>" class="header item">Profile</a>
+  </nav>
+<div class="ui main container">
     <header>
         <% if(locals.flash && locals.flash.error){ %>
             <div class="ui negative message">
@@ -27,13 +32,13 @@
         <section class="ui main container" style="display: flex; align-items: center; flex-direction: column;">
 
             <% for(const post of posts) {%> 
-                <article class="ui card fluid">
+                <article class="ui medium card ">
                     <div class="content">
                         <div class="right floated meta"><%= post.created_at %></div>
-                        <img class="ui avatar image" src="/images/default_user.png"> <span><%= post.author %></span>
+                        <img class="ui avatar image" src="/images/default_user.png"> <a href="/profile/<%= post.author %>"><%= post.author %></a>
                       </div>
                       <div class="image">
-                        <img class="ui medium image" src="/images/<%= post.image %>">
+                        <img class="ui tiny image" src="/images/<%= post.image %>">
                       </div>
                       <div class="content">
                         <p><%= post.content %></p>

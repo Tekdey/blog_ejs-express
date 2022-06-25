@@ -1,4 +1,5 @@
 const UserModel = require("../models/user.models");
+const PostModel = require("../models/post.models");
 
 /**
  * User controllers
@@ -12,6 +13,51 @@ class User {
    */
   static form(req, res) {
     res.render(`pages/${req.url.replace("/", "")}`);
+  }
+
+  /**
+   * It gets a user from the database, then gets all the posts from the database that are associated
+   * with that user, then sends the user and posts to the view.
+   * @param req - request object
+   * @param res - the response object
+   * @returns The data object is being returned.
+   */
+  static async profile(req, res) {
+    const name = req.params.name;
+
+    await UserModel.getOneUser(name, function (isValid, status, message, user) {
+      if (!isValid) {
+        req.flash("error", message.error);
+        return res.status(status).send("User not found");
+      }
+
+      PostModel.findAllPostByUsername(
+        user.username,
+        function (isValid, status, message, posts) {
+          if (!isValid) {
+            req.flash("error", message.error);
+            return res.status(status).send("User not found");
+          }
+          // user & post object
+          const data = {
+            user: {
+              username: user.username,
+              email: user.email,
+              created_at: user.created_at,
+            },
+            post: {
+              count: posts.length,
+              item: {
+                ...posts,
+              },
+            },
+          };
+          res.locals.data = data;
+          console.log(data);
+          return res.render("pages/profile");
+        }
+      );
+    });
   }
   /**
    * Register controller thats _check if user is valid if it is he call the datamapper else return error message

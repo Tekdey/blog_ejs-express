@@ -1,0 +1,13 @@
+#menu_section-2,#menu_section-3 {
+    display: none;
+}
+#menu_section-1 .image > img{
+    height: 100px;
+    width: 100px;
+}
+.container-menu_section{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+}
