@@ -1,3 +1,4 @@
+/* Checking if the pathname starts with /profile/ and if it does it will add the css and js files. */
 const profile = window.location.pathname.startsWith("/profile/");
 
 if (profile) {
