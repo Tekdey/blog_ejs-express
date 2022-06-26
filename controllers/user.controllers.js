@@ -53,7 +53,6 @@ class User {
             },
           };
           res.locals.data = data;
-          console.log(data);
           return res.render("pages/profile");
         }
       );

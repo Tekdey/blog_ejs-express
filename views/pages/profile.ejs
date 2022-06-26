@@ -16,7 +16,7 @@
     <div class="three ui buttons profile__menu">
         <button class="ui button" id="menu_button-1"><%= data.user.username %></button>
         <button class="ui button" id="menu_button-2">Posts (<%= data.post.count %>)</button>
-        <button class="ui button" id="menu_button-3">Likes</button>
+        <button class="ui button" id="menu_button-3">Coming soon</button>
     </div>
     <div class="container-menu_section">
         <div class="ui" id="menu_section-1">
@@ -33,9 +33,6 @@
                 <div class="extra">
                     <%= data.post.count %>  posts
                 </div>
-                <div class="extra">
-                    0 likes
-                </div>
               </div>
             </div>
         </div>
@@ -51,14 +48,6 @@
                       </div>
                       <div class="content">
                         <p><%= data.post.item[i].content %></p>
-                      </div>
-                      <div class="content">
-                        <span class="right floated">
-                          <i class="heart outline like icon"></i>
-                          17 likes
-                        </span>
-                        <i class="comment icon"></i>
-                        3 comments
                       </div>
                 </article>
             <% } %> 
